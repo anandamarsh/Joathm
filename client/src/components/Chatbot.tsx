@@ -5,6 +5,7 @@ import MinimizeIcon from '@mui/icons-material/Minimize';
 import SendIcon from '@mui/icons-material/Send';
 import AssistantIcon from '@mui/icons-material/Assistant';
 import Draggable from 'react-draggable';
+import useChat from '../hooks/useChat';
 
 interface ChatbotProps {
   onClose: () => void;
@@ -13,6 +14,7 @@ interface ChatbotProps {
 }
 
 const Chatbot: React.FC<ChatbotProps> = ({ onClose, title, headerColor }) => {
+  const { threadId, loading } = useChat();
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [minimized, setMinimized] = useState(false);
@@ -27,6 +29,10 @@ const Chatbot: React.FC<ChatbotProps> = ({ onClose, title, headerColor }) => {
   const toggleMinimize = () => {
     setMinimized(!minimized);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Draggable handle=".chatbot-header">
@@ -72,6 +78,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ onClose, title, headerColor }) => {
         {!minimized && (
           <>
             <Box sx={{ flexGrow: 1, p: 1, overflowY: 'auto' }}>
+              {threadId && <Typography>Thread ID: {threadId}</Typography>}
               {messages.map((msg, index) => (
                 <Typography key={index} variant="body1" sx={{ mb: 1 }}>
                   {msg}

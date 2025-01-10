@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, Avatar, CssBaseline, Divider } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, Avatar, CssBaseline, Divider, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AssistantIcon from '@mui/icons-material/Assistant';
 import Chatbot from './Chatbot';
@@ -8,7 +8,11 @@ const drawerWidth = 250;
 const closedDrawerWidth = 64;
 const headerColor = '#3f51b5';
 
-const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [chatbotVisible, setChatbotVisible] = useState(false);
 
